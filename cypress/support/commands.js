@@ -33,8 +33,8 @@ Cypress.Commands.add("login", () => {
 			method: "POST",
 			url: `http://3.138.52.135:3000/auth/login`,
 			body: {
-				email: "SET_YOUR_EMAIL",
-				password: "SET_YOUR_PASSWORD",
+				email: "f.espinosa01@ufromail.cl",
+				password: "nkn5OD5D",
 			},
 		})
 		.then(({ body }) => {
