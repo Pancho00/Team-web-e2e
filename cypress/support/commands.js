@@ -27,35 +27,36 @@
 /**
  * Send login request with email and password
  */
+import { LOGIN_CREDENTIALS } from "../consts/global-consts";
 Cypress.Commands.add("login", () => {
-	return cy
-		.request({
-			method: "POST",
-			url: `http://3.138.52.135:3000/auth/login`,
-			body: {
-				email: "f.espinosa01@ufromail.cl",
-				password: "nkn5OD5D",
-			},
-		})
-		.then(({ body }) => {
-			const { token, user } = body;
-			cy.window().then((win) => {
-				win.localStorage.setItem("user", JSON.stringify({ token, user }));
-				return token;
-			});
-		});
+  return cy
+    .request({
+      method: "POST",
+      url: `http://3.138.52.135:3000/auth/login`,
+      body: {
+        email: LOGIN_CREDENTIALS.EMAIL,
+        password: LOGIN_CREDENTIALS.PASSWORD,
+      },
+    })
+    .then(({ body }) => {
+      const { token, user } = body;
+      cy.window().then((win) => {
+        win.localStorage.setItem("user", JSON.stringify({ token, user }));
+        return token;
+      });
+    });
 });
 
 /**
  * Send request to clubs endpoint with the input token and return the user clubs
  */
 Cypress.Commands.add("getClubs", (token) => {
-	cy.request({
-		url: `http://3.138.52.135:3000/clubs`,
-		headers: {
-			Authorization: `Bearer ${token}`,
-		},
-	}).then(({ body }) => {
-		return body.clubs;
-	});
+  cy.request({
+    url: `http://3.138.52.135:3000/clubs`,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }).then(({ body }) => {
+    return body.clubs;
+  });
 });
