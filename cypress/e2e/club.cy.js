@@ -30,7 +30,7 @@ describe("Club", () => {
 		);
 	});
 
-	it.skip("[SUCCESS C-3] add member", () => {
+	it("[SUCCESS C-3] add member", () => {
 		const newMember = {
 			name: faker.person.fullName(),
 			lastName: faker.person.lastName(),
@@ -143,7 +143,7 @@ describe("Club", () => {
 		});
 	});
 
-	it.only("[ERROR C-5] show notification with text unavailable when clicking on delete member button", () => {
+	it("[ERROR C-5] show notification with text unavailable when clicking on delete member button", () => {
 		cy.getFirstClub(token).then((club) => {
 			cy.window().then((win) => {
 				win.localStorage.setItem("club", JSON.stringify({ active: club }));

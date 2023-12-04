@@ -102,3 +102,16 @@ Cypress.Commands.add("getMembersCount", () => {
       }
     });
 });
+
+/**
+ * Visit the home page
+ */
+Cypress.Commands.add("goHome", () => {
+  cy.visit("/", {
+    failOnStatusCode: false,
+  });
+  cy.url().should(
+    "eq",
+    "http://pruebas-soft.s3-website.us-east-2.amazonaws.com/"
+  );
+});
