@@ -60,3 +60,45 @@ Cypress.Commands.add("getClubs", (token) => {
     return body.clubs;
   });
 });
+
+/**
+ * Send request to clubs endpoint with the input token and return the members of the clubId
+ */
+Cypress.Commands.add("getMembersOfClub", (token, clubId) => {
+  cy.request({
+    method: "GET",
+    url: `http://3.138.52.135:3000/clubs/${clubId}/members`,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }).then(({ body }) => {
+    return body.members;
+  });
+})
+
+/**
+ * Send request to clubs endpoint with the input token and return the first club
+ */
+Cypress.Commands.add("getFirstClub", (token) => {
+  cy.getClubs(token).then((clubs) => {
+    return clubs[0];
+  });
+});
+
+/**
+ * Get the number of members of the club from the club page
+ */
+Cypress.Commands.add("getMembersCount", () => {
+  cy.get('div[class="text-h6"]')
+    .contains("Members")
+    .should("exist")
+    .and("be.visible")
+    .invoke("text")
+    .then((text) => {
+      const match = RegExp(/\d+/).exec(text);
+      if (match) {
+        const numeroDeMiembros = parseInt(match[0]);
+        return numeroDeMiembros;
+      }
+    });
+});
